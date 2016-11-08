@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 from BeautifulSoup import BeautifulSoup
 import urllib
 
@@ -7,6 +9,8 @@ from email.mime.text import MIMEText
 from datetime import date
 
 from arXivConfig import *
+
+import os
 
 def feed2str(feed):
   title = feed[0].split("Title:")[1]
@@ -19,7 +23,7 @@ def send(emails, name, feeds):
   # write message
   msg_str = """Dear arXivFeed user:
 
-  With regard to your request for a daily feed of arXiv papers related to {0}, we are pround to present you the paper(s) that are uploaded since our last email.
+With regard to your request for a daily feed of arXiv papers related to {0}, we are pround to present you the paper(s) that are uploaded since our last email.
 
 """.format(name)
   
@@ -45,8 +49,11 @@ arXivFeed
 
 if __name__ == "__main__":
   
-  history = []
-  # history = open(history_path).readlines()
+  if os.path.exists(history_path):
+    history = open(history_path).readlines()
+  else:
+    history = [] 
+
   for i in range(len(history)):
     history[i] = history[i].strip()
 
@@ -66,6 +73,10 @@ if __name__ == "__main__":
       feeds.append((title, authors, pdfurl))
   
     if feeds:
-      for email in emails:
-        send(email, feed_name, feeds)
+      send(emails, feed_name, feeds)
+      
+      history_file = open(history_path, 'w')
+      for feed in feeds:
+	history_file.write(str(feed[0]) + '\n')
+      history_file.close()
 
