@@ -30,10 +30,11 @@ With regard to your request for a daily feed of arXiv papers related to {0}, we 
   for feed in feeds:
     msg_str += (feed2str(feed) + '\n\n')
 
-  msg_str += """We hope you enjoy the feed presented today.
+  msg_str += """We hope you enjoy the feed today.
 
 Regards,
 arXivFeed
+
 """
 
   d = date.today()
