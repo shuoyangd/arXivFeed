@@ -23,7 +23,7 @@ def send(emails, name, feeds):
   # write message
   msg_str = """Dear arXivFeed user:
 
-With regard to your request for a daily feed of arXiv papers related to {0}, we are pround to present you the paper(s) that are uploaded since our last email.
+With regard to your request for a daily feed of arXiv papers related to {0}, we are proud to present you the paper(s) that are uploaded since our last email.
 
 """.format(name)
   
