@@ -70,8 +70,15 @@ if __name__ == "__main__":
         break
   
       authors = meta.find("div", attrs = {'class': "list-authors"}).text
-      pdfurl = "https://arxiv.org" + link.find("a", attrs = {'title': "Download PDF"}).get("href")
-      feeds.append((title, authors, pdfurl))
+
+      url= ""
+      pdfnode = link.find("a", attrs = {'title': "Download PDF"})
+      htmlnode = link.find("a", attrs = {'title': "Download HTML"})
+      if pdfnode is not None:
+        url = "https://arxiv.org" + pdfnode.get("href")
+      elif htmlnode is not None:
+        url = "https://arxiv.org" + htmlnode.get("href")
+      feeds.append((title, authors, url))
   
     if feeds:
       send(emails, feed_name, feeds)
