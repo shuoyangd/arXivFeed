@@ -70,7 +70,10 @@ if __name__ == "__main__":
     for title in titles:
       items = filter(lambda x: x != u'', \
           [ item.text.strip() if hasattr(item, "text") else item.strip() for item in title ])
-      stripped_titles.append(" ".join(items))
+      title_str = " ".join(items)
+      if title_str in history:
+          break
+      stripped_titles.append(title_str)
     titles = stripped_titles
     authors = filter(lambda x: x is not None, \
         [meta.find('p', attrs={"class": "authors"}) for meta in metas])
